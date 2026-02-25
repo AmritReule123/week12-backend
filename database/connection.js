@@ -30,12 +30,12 @@ db.Sequelize = Sequelize
 db.sequelize = sequelize
 
 db.books = require("./models/book.model")(sequelize,DataTypes)
-db.user = require("./models/user.model")(sequelize,DataTypes)
+// db.users = require("./models/user.model")(sequelize,DataTypes)
  db.product = require("./models/product.model")(sequelize,DataTypes)
 
 
 //migrate code ho yo chai hai 
-sequelize.sync({alter : false}).then(()=>{
+sequelize.sync({alter : true}).then(()=>{
     console.log("migrae vato haii tw")
 })
 

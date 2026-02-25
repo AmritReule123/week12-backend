@@ -1,69 +1,47 @@
 
 const express = require("express");
-const { books } = require("./database/connection");
-const app = express();
+// const { users, Book } = require("./database/connection");
+const bookRoute = require("./routes/bookRoute")
 
+// const reviewRoute = require("./reviews/reviewsRoutes")
+
+
+const app = express();
 //connection.js loe import garya ko 
 require("./database/connection")
 app.use(express.json());
 
-// GET books
-app.get("/books",async function (req,res) {
-  // logic to fetch books from database
+
+// // ✅ GET all users
+// app.get("/users", async (req, res) => {
+//   const datas = await User.findAll();
+//   res.json({
+//     message: "Users fetched successfully",
+//     datas
+//   });
+// });
+
+
+// // ✅ POST new user
+// app.post("/users", async (req, res) => {
+//   const { userName, email, password, age } = req.body;
+
+//   const newUser = await User.create({
+//     userName,
+//     email,
+//     password,
+//     age
+//   });
   
-const datas = await books.findAll()  //select from books, books.find()
-  res.json({
-    message: "books fetched successfully",
-    datas,
-  });
-});
+//  res.json({
+//   message: "user automatically changed"
+//  })
+// })
 
+// localhost:4949/api + /hello = localhost:4949/api/hello
+/// localhost:4949/api + /books/:id = localhost:4949/api/books/:id
+app.use("/api/books",bookRoute)
 
-// POST books
-app.post("/books",async function (req,res) {
-  // logic to add book to database goes here..
-
-// console.log(req.body)
-// const bookName = req.body.bookName
-// const bookprice = req.body.bookprice
-
-// const {bookName,bookprice} = req.body
-// console.log(bookName)
-// console.log(bookprice)
-
-const {bookName,bookPrice,bookAuthor,bookGenre} = req.body
-await books.create({
-  bookName, 
-  bookPrice: bookPrice, 
-  bookAuthor,
-  bookGenre 
-})
-  res.json({
-    message: "Book added successfully"
-  });
-});
-
-
-// DELETE book
-app.delete("/books/:id", function (req,res) {
-  // logic to delete book
-
-
-  res.json({
-    message: "Book Deleted successfully"
-  });
-});
-
-
-// PATCH book
-app.patch("/books/:id", function (req, res) {
-  // logic to update book
-
-
-  res.json({
-    message: "Book Updated successfully"
-  });
-});
 
 
 app.listen(4949, () =>{
